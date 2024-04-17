@@ -1,0 +1,70 @@
+openapi: 3.0.0
+info:
+  title: Zocket Key-Value Store API
+  description: API for storing and retrieving key-value pairs in a distributed system
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Local development server
+paths:
+  /put:
+    post:
+      summary: Store a key-value pair
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                key:
+                  type: string
+                  description: Key to store
+                value:
+                  type: string
+                  description: Value to associate with the key
+      responses:
+        '201':
+          description: Key-value pair stored successfully
+  /get:
+    post:
+      summary: Retrieve the value associated with a key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                key:
+                  type: string
+                  description: Key to retrieve the value for
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: string
+                    description: Value associated with the key
+        '404':
+          description: Key not found
+  /delete:
+    post:
+      summary: Delete a key-value pair
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                key:
+                  type: string
+                  description: Key to delete
+      responses:
+        '204':
+          description: Key-value pair deleted successfully

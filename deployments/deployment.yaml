@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zocket-key-value-store
+  labels:
+    app: zocket-key-value-store
+spec:
+  replicas: 1 # Adjust the number of replicas as needed
+  selector:
+    matchLabels:
+      app: zocket-key-value-store
+  template:
+    metadata:
+      labels:
+        app: zocket-key-value-store
+    spec:
+      containers:
+        - name: zocket-key-value-store
+          image: zocket-key-value-store:latest # Replace with your container image (AWS ECR image url)
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080 # Ensure this matches the port your application listens on
+          env:
+            - name: CONSUL_ADDRESS
+              value: "host.docker.internal:8500" # Replace with your Consul server address
+            - name: PORT
+              value: "8080"

@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: zocket-key-value-store-ingress
+  annotations:
+    # Specify the ingress controller to use, e.g., NGINX Ingress Controller
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+    - host: your-application.example.com # Replace with your domain or IP address
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: zocket-key-value-store
+                port:
+                  number: 80
